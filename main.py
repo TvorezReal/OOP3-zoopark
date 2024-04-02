@@ -26,6 +26,7 @@ class Bird(Animal):
     def __init__(self, name, age, color):
         super().__init__(name, age)
         self.color = color
+
     def make_sound(self):
         print(f'{self.name} чирикает')
 
@@ -59,24 +60,52 @@ class Veterinarian:
     def heal_animal(self, animal):
         animal.make_sound()
 
+class Zooworker:
+    def __init__(self, name):
+        self.name = name
+
+class ZooKeeper(Zooworker):
+    def __init__(self, name):
+        super().__init__(name)
+
+    def feed_animal(self, animal):
+        animal.eat()
+
+class Veterinarian(Zooworker):
+    def __init__(self, name):
+        super().__init__(name)
+
+    def heal_animal(self, animal):
+        animal.make_sound()
+
 class Zoo:
     def __init__(self):
         self.animals = Animal
-        self.zoo_keeper = ZooKeeper
-        self.veterinarian = Veterinarian
+        self.zoo_worker = Zooworker
+
 
     def add_animal(self, animal):
         self.animals.append(animal)
 
-    def add_zoo_keeper(self, zoo_keeper):
-        self.zoo_keeper.append(zoo_keeper)
-
-    def add_veterinarian(self, veterinarian):
-        self.veterinarian.append(veterinarian)
+    def add_zoo_worker(self, zoo_worker):
+        self.zoo_worker.append(zoo_worker)
 
 
- animals = [Bird('Кукушка', 2, 'коричневый'), Mammal('Волк', 5, 'лес'), Reptile('Крокодил', 3, 'река')]
+
+animals = [Bird('Кукушка', 2, 'коричневый'), Mammal('Волк', 5, 'лес'), Reptile('Крокодил', 3, 'река')]
 
 def animal_sound(animals):
     for animal in animals:
         animal.make_sound()
+
+zoo_keepers = [ZooKeeper('Артем')]
+
+veterinarians = [Veterinarian('Виктор')]
+
+zoo = Zoo()
+zoo.add_animal(animals)
+zoo.add_zoo_keeper(zoo_keepers)
+zoo.add_veterinarian(veterinarians)
+
+animal_sound(animals)
+
