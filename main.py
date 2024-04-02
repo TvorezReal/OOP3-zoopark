@@ -42,15 +42,41 @@ class Reptile(Animal):
     def make_sound(self):
         print(f'{self.name} ревет')
 
+
+class ZooKeeper:
+    def __init__(self, name):
+        self.name = name
+
+    def feed_animal(self, animal):
+        animal.eat()
+
+
+class Veterinarian:
+    def __init__(self, name):
+        self.name = name
+
+
+    def heal_animal(self, animal):
+        animal.make_sound()
+
 class Zoo:
-    def __init__(self, animals, zookeepers, veterinarians):
-        self.animals = animals
-        self.zookeepers = zookeepers
-        self.veterinarians = veterinarians
+    def __init__(self):
+        self.animals = Animal
+        self.zoo_keeper = ZooKeeper
+        self.veterinarian = Veterinarian
+
+    def add_animal(self, animal):
+        self.animals.append(animal)
+
+    def add_zoo_keeper(self, zoo_keeper):
+        self.zoo_keeper.append(zoo_keeper)
+
+    def add_veterinarian(self, veterinarian):
+        self.veterinarian.append(veterinarian)
 
 
  animals = [Bird('Кукушка', 2, 'коричневый'), Mammal('Волк', 5, 'лес'), Reptile('Крокодил', 3, 'река')]
 
- def animal_sound(animals):
+def animal_sound(animals):
     for animal in animals:
         animal.make_sound()
