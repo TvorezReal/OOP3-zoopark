@@ -18,7 +18,7 @@ class Animal:
         self.age = age
 
     def make_sound(self):
-        print(f'{self.name} издает звуки')
+        pass
 
     def eat(self):
         print(f'{self.name} кормится')
@@ -36,6 +36,9 @@ class Mammal(Animal):
         super().__init__(name, age)
         self.habitat = habitat
 
+    def make_sound(self):
+        print(f'{self.name} мяукает')
+
 class Reptile(Animal):
     def __init__(self, name, age, habitat):
         super().__init__(name, age)
@@ -52,9 +55,11 @@ class Zoo:
 
     def add_animal(self, animal):
         self.animals.append(animal)
+        print(f"Животное {animal.name} добавлено в зоопарк")
 
     def add_employee(self, employee):
         self.employees.append(employee)
+        print(f"Сотрудник {employee.name} добавлен в зоопарк")
 
     def show_animals(self):
         for animal in self.animals:
@@ -120,7 +125,7 @@ print("\nСотрудники зоопарка:")
 zoo.show_employees()
 
 print("\nГолоса животных:")
-animal_sound([bird, mammal, reptile])
+animal_sound(zoo.animals)
 
 zoo_keeper.feed_animal("Волк")
 veterinarian.heal_animal("Крокодил")
