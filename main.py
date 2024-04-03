@@ -11,6 +11,7 @@
 # 6. Попробуйте добавить дополнительные функции в вашу программу, такие как сохранение информации о зоопарке
 # в файл и возможность её загрузки, чтобы у вашего зоопарка было "постоянное состояние" между запусками программы.
 
+import pickle
 class Animal:
     def __init__(self, name, age):
         self.name = name
@@ -63,6 +64,16 @@ class Zoo:
         for employee in self.employees:
             print(f"Имя: {employee.name}, Профессия: {employee.position}")
 
+    def save_state(self, filename):
+        with open(filename, 'wb') as file:
+            # Используем pickle для сохранения состояния
+            pickle.dump((self.animals, self.employees), file)
+
+    def load_state(self, filename):
+        with open(filename, 'rb') as file:
+            # Загружаем состояние из файла
+            self.animals, self.employees = pickle.load(file)
+
 
 class ZooKeeper:
     def __init__(self, name):
@@ -113,3 +124,10 @@ animal_sound([bird, mammal, reptile])
 
 zoo_keeper.feed_animal("Волк")
 veterinarian.heal_animal("Крокодил")
+
+try:
+    zoo.load_state('zoo_state.pkl')
+except FileNotFoundError:
+    print("Файл состояния не найден. Загружается новое состояние зоопарка.")
+
+zoo.save_state('zoo_state.pkl')
