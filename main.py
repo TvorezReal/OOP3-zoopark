@@ -44,68 +44,72 @@ class Reptile(Animal):
         print(f'{self.name} ревет')
 
 
+class Zoo:
+    def __init__(self):
+        self.animals = []
+        self.employees = []
+
+    def add_animal(self, animal):
+        self.animals.append(animal)
+
+    def add_employee(self, employee):
+        self.employees.append(employee)
+
+    def show_animals(self):
+        for animal in self.animals:
+            print(f"Имя: {animal.name}, Возраст: {animal.age}")
+
+    def show_employees(self):
+        for employee in self.employees:
+            print(f"Имя: {employee.name}, Профессия: {employee.position}")
+
+
 class ZooKeeper:
     def __init__(self, name):
         self.name = name
+        self.position = "ZooKeeper"
 
-    def feed_animal(self, animal):
-        animal.eat()
+    def feed_animal(self, animal_name):
+        print(f"{self.name} кормит {animal_name}")
 
 
 class Veterinarian:
     def __init__(self, name):
         self.name = name
+        self.position = "Veterinarian"
 
+    def heal_animal(self, animal_name):
+        print(f"{self.name} лечит {animal_name}")
 
-    def heal_animal(self, animal):
-        animal.make_sound()
-
-class Zooworker:
-    def __init__(self, name):
-        self.name = name
-
-class ZooKeeper(Zooworker):
-    def __init__(self, name):
-        super().__init__(name)
-
-    def feed_animal(self, animal):
-        animal.eat()
-
-class Veterinarian(Zooworker):
-    def __init__(self, name):
-        super().__init__(name)
-
-    def heal_animal(self, animal):
-        animal.make_sound()
-
-class Zoo:
-    def __init__(self):
-        self.animals = Animal
-        self.zoo_worker = Zooworker
-
-
-    def add_animal(self, animal):
-        self.animals.append(animal)
-
-    def add_zoo_worker(self, zoo_worker):
-        self.zoo_worker.append(zoo_worker)
-
-
-
-animals = [Bird('Кукушка', 2, 'коричневый'), Mammal('Волк', 5, 'лес'), Reptile('Крокодил', 3, 'река')]
 
 def animal_sound(animals):
     for animal in animals:
         animal.make_sound()
 
-zoo_keepers = [ZooKeeper('Артем')]
 
-veterinarians = [Veterinarian('Виктор')]
+bird = Bird("Кукушка", 3, 'коричневый')
+mammal = Mammal('Волк', 5, 'лес')
+reptile = Reptile('Крокодил', 3, 'река')
+
+zoo_keeper = ZooKeeper('Артем')
+
+veterinarian = Veterinarian('Виктор')
 
 zoo = Zoo()
-zoo.add_animal(animals)
-zoo.add_zoo_keeper(zoo_keepers)
-zoo.add_veterinarian(veterinarians)
+zoo.add_animal(bird)
+zoo.add_animal(mammal)
+zoo.add_animal(reptile)
+zoo.add_employee(zoo_keeper)
+zoo.add_employee(veterinarian)
 
-animal_sound(animals)
+print("Животные в зоопарке:")
+zoo.show_animals()
 
+print("\nСотрудники зоопарка:")
+zoo.show_employees()
+
+print("\nГолоса животных:")
+animal_sound([bird, mammal, reptile])
+
+zoo_keeper.feed_animal("Волк")
+veterinarian.heal_animal("Крокодил")
